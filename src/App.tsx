@@ -8,9 +8,7 @@ import {
 	ChevronRight,
 	Code2,
 	Briefcase,
-	GraduationCap,
 	Building2,
-	ExternalLink,
 } from 'lucide-react';
 
 // Data Arrays for Clean Rendering
