@@ -11,7 +11,6 @@ import {
 	Building2,
 } from 'lucide-react';
 
-// Data Arrays for Clean Rendering
 const salesAttributes = [
 	{
 		title: 'Emotional Intelligence',
@@ -56,10 +55,43 @@ const devAttributes = [
 ];
 
 const PortfolioPage: React.FC = () => {
+	// Smooth Scroll Helper
+	const scrollToSection = (id: string) => {
+		const element = document.getElementById(id);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
+
 	return (
-		<div className='min-h-screen w-screen overflow-x-hidden bg-[#FDFDFD] text-slate-900 font-sans'>
+		<div className='min-h-screen w-screen overflow-x-hidden bg-[#FDFDFD] text-slate-900 font-sans scroll-smooth'>
+			{/* LAYER 0: NAVIGATION */}
+			<nav className='fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-8 py-4 flex justify-between items-center'>
+				<span className='font-serif font-black text-xl tracking-tighter'>
+					RA.
+				</span>
+				<div className='flex gap-8'>
+					{[
+						{ name: 'Profile', id: 'profile' },
+						{ name: 'Expertise', id: 'expertise' },
+						{ name: 'Experience', id: 'experience' },
+					].map((link) => (
+						<button
+							key={link.id}
+							onClick={() => scrollToSection(link.id)}
+							className='text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-blue-600 transition-colors'
+						>
+							{link.name}
+						</button>
+					))}
+				</div>
+			</nav>
+
 			{/* LAYER 1: HEADER */}
-			<header className='w-full pt-16 pb-12 px-8 text-center bg-white border-b border-slate-100'>
+			<header
+				id='profile'
+				className='w-full pt-32 pb-12 px-8 text-center bg-white border-b border-slate-100'
+			>
 				<motion.h1
 					initial={{ opacity: 0, y: -10 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -76,7 +108,10 @@ const PortfolioPage: React.FC = () => {
 
 			{/* LAYER 2: CORE ATTRIBUTES & CONTACT */}
 			<main className='w-full p-4 md:p-8 lg:p-12'>
-				<div className='flex flex-col lg:flex-row items-stretch gap-8 w-full mb-12'>
+				<div
+					id='expertise'
+					className='flex flex-col lg:flex-row items-stretch gap-8 w-full mb-12 scroll-mt-24'
+				>
 					{/* Left: Sales & Profile */}
 					<div className='flex-1 lg:w-1/2 flex flex-col gap-8'>
 						<section className='bg-white border border-slate-200 rounded-3xl p-8 shadow-sm flex flex-col items-center text-center'>
@@ -90,7 +125,7 @@ const PortfolioPage: React.FC = () => {
 							<h2 className='text-2xl font-serif font-bold mb-4'>
 								Strategic Communication
 							</h2>
-							<p className='text-slate-500 leading-relaxed max-w-2xl'>
+							<p className='text-slate-500 leading-relaxed max-w-2xl text-sm'>
 								Leveraging years of high-stakes sales experience
 								to build software that actually solves human
 								problems.
@@ -110,7 +145,7 @@ const PortfolioPage: React.FC = () => {
 							<div className='space-y-6'>
 								{salesAttributes.map((attr, i) => (
 									<div key={i}>
-										<h4 className='text-lg font-bold text-slate-800'>
+										<h4 className='text-lg font-bold text-slate-800 uppercase tracking-tighter'>
 											0{i + 1} {attr.title}
 										</h4>
 										<p className='text-slate-500 mt-1 text-sm'>
@@ -193,7 +228,7 @@ const PortfolioPage: React.FC = () => {
 											className='text-cyan-500 mt-1'
 										/>
 										<div>
-											<h4 className='text-lg font-bold text-slate-800'>
+											<h4 className='text-lg font-bold text-slate-800 uppercase tracking-tighter'>
 												{attr.title}
 											</h4>
 											<p className='text-slate-500 text-sm mt-1'>
@@ -207,20 +242,22 @@ const PortfolioPage: React.FC = () => {
 					</div>
 				</div>
 
-				{/* LAYER 3: EDUCATION & EXPERIENCE (New Section) */}
-				<div className='flex flex-col lg:flex-row items-stretch gap-8 w-full'>
-					{/* Left: Detailed Experience Timeline */}
+				{/* LAYER 3: EDUCATION & EXPERIENCE */}
+				<div
+					id='experience'
+					className='flex flex-col lg:flex-row items-stretch gap-8 w-full scroll-mt-24'
+				>
 					<div className='flex-1 lg:w-2/3'>
 						<section className='bg-white border border-slate-200 rounded-3xl p-10 shadow-sm h-full'>
-							<h3 className='text-3xl font-serif font-bold mb-10 border-b border-slate-100 pb-6'>
-								Education & Work Experience
+							<h3 className='text-3xl font-serif font-bold mb-10 border-b border-slate-100 pb-6 uppercase tracking-tight'>
+								Education & Experience
 							</h3>
 
 							<div className='space-y-12'>
 								{/* Education */}
 								<div className='relative pl-8 border-l-2 border-slate-100'>
 									<div className='absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-sm' />
-									<h4 className='text-sm font-bold uppercase tracking-widest text-blue-600 mb-2'>
+									<h4 className='text-xs font-black uppercase tracking-widest text-blue-600 mb-2'>
 										Education
 									</h4>
 									<div className='flex justify-between items-start mb-2'>
@@ -228,22 +265,21 @@ const PortfolioPage: React.FC = () => {
 											George Brown Polytechnic
 										</p>
 										<span className='text-sm text-slate-400 font-medium italic'>
-											Sept 2024 - June 2027
+											2024 - 2027
 										</span>
 									</div>
 									<p className='text-slate-500 text-sm leading-relaxed'>
-										Participated in various coding
-										competitions and gained significant
-										knowledge on professional collaboration
-										and methodologies.
+										Focused on professional collaboration,
+										Scrum methodologies, and modern web
+										architectures.
 									</p>
 								</div>
 
 								{/* Employment - Developer */}
 								<div className='relative pl-8 border-l-2 border-slate-100'>
 									<div className='absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow-sm' />
-									<h4 className='text-sm font-bold uppercase tracking-widest text-cyan-500 mb-2'>
-										Current Role
+									<h4 className='text-xs font-black uppercase tracking-widest text-cyan-500 mb-2'>
+										Current
 									</h4>
 									<div className='flex justify-between items-start mb-2'>
 										<p className='font-bold text-xl'>
@@ -254,84 +290,43 @@ const PortfolioPage: React.FC = () => {
 										</span>
 									</div>
 									<p className='text-slate-500 text-sm leading-relaxed mb-4'>
-										Collaborated on financial systems for
-										banking companies using Scrum
-										methodology. Responsible for the
-										business logic section and ensuring
-										transactions are completed with client
-										satisfaction.
+										Developing business logic and financial
+										transaction systems for enterprise
+										banking platforms.
 									</p>
-								</div>
-
-								{/* Employment - Sales */}
-								<div className='relative pl-8 border-l-2 border-slate-100'>
-									<div className='absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-200 border-4 border-white shadow-sm' />
-									<h4 className='text-sm font-bold uppercase tracking-widest text-slate-400 mb-2'>
-										Professional History
-									</h4>
-									<div className='mb-6'>
-										<div className='flex justify-between items-start mb-1'>
-											<p className='font-bold text-lg'>
-												JD Sports — Sales Associate
-											</p>
-											<span className='text-xs text-slate-400 font-medium italic'>
-												July 2024 - April 2026
-											</span>
-										</div>
-										<p className='text-slate-500 text-sm'>
-											Promoted to supervisor to organize
-											day-to-day operations for sales
-											employees.
-										</p>
-									</div>
-									<div>
-										<div className='flex justify-between items-start mb-1'>
-											<p className='font-bold text-lg'>
-												Lowe's — Sales Associate
-											</p>
-											<span className='text-xs text-slate-400 font-medium italic'>
-												July - Sept 2023
-											</span>
-										</div>
-										<p className='text-slate-500 text-sm'>
-											Assisted customers with product
-											selection and maintained an
-											organized environment.
-										</p>
-									</div>
 								</div>
 							</div>
 						</section>
 					</div>
 
-					{/* Right: Partner Logos & Stack */}
+					{/* Right: Affiliations & Stack */}
 					<div className='flex-1 lg:w-1/3 flex flex-col gap-8'>
-						<section className='bg-white border border-slate-200 rounded-3xl p-10 shadow-sm flex flex-col items-center justify-between'>
-							<h4 className='text-xs font-bold uppercase tracking-[0.3em] text-slate-400 mb-8'>
+						<section className='bg-white border border-slate-200 rounded-3xl p-10 shadow-sm flex flex-col items-center'>
+							<h4 className='text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 mb-8'>
 								Affiliations
 							</h4>
 							<div className='flex flex-col gap-10 items-center w-full'>
-								<div className='flex items-center gap-4 group cursor-help'>
-									<div className='w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center text-white font-bold p-3'>
+								<div className='flex items-center gap-4 group'>
+									<div className='w-14 h-14 bg-blue-900 rounded-full flex items-center justify-center text-white p-3'>
 										<Building2 />
 									</div>
-									<span className='font-bold text-slate-700'>
+									<span className='font-bold text-slate-700 text-sm'>
 										George Brown
 									</span>
 								</div>
-								<div className='flex items-center gap-4 group opacity-60'>
-									<div className='w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center text-white font-bold p-3 uppercase'>
+								<div className='flex items-center gap-4 opacity-40'>
+									<div className='w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center text-white text-[10px] font-black uppercase'>
 										Lowe's
 									</div>
-									<span className='font-bold text-slate-700'>
+									<span className='font-bold text-slate-700 text-sm'>
 										Lowe's Home
 									</span>
 								</div>
-								<div className='flex items-center gap-4 group opacity-60'>
-									<div className='w-16 h-16 bg-black rounded-full flex items-center justify-center text-white font-bold p-3 text-2xl italic'>
+								<div className='flex items-center gap-4 opacity-40'>
+									<div className='w-14 h-14 bg-black rounded-full flex items-center justify-center text-white text-xl italic font-black'>
 										JD
 									</div>
-									<span className='font-bold text-slate-700'>
+									<span className='font-bold text-slate-700 text-sm'>
 										JD Sports
 									</span>
 								</div>
@@ -339,10 +334,10 @@ const PortfolioPage: React.FC = () => {
 						</section>
 
 						<section className='bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-3xl p-10 shadow-sm text-center'>
-							<h4 className='text-xs font-bold uppercase tracking-[0.3em] text-slate-400 mb-6'>
-								Tech Stack
+							<h4 className='text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 mb-6'>
+								Stack
 							</h4>
-							<div className='flex flex-wrap justify-center gap-4'>
+							<div className='flex flex-wrap justify-center gap-3'>
 								{[
 									'React',
 									'Next.js',
@@ -353,7 +348,7 @@ const PortfolioPage: React.FC = () => {
 								].map((tech) => (
 									<span
 										key={tech}
-										className='px-4 py-2 bg-white border border-slate-100 rounded-full text-xs font-bold shadow-sm'
+										className='px-4 py-2 bg-white border border-slate-100 rounded-full text-[10px] font-black uppercase shadow-sm'
 									>
 										{tech}
 									</span>
@@ -364,9 +359,9 @@ const PortfolioPage: React.FC = () => {
 				</div>
 			</main>
 
-			<footer className='w-full py-12 text-center border-t border-slate-100 bg-white'>
-				<p className='text-slate-400 text-[10px] uppercase tracking-[0.8em] font-bold'>
-					Ricardo Alvear — Portfolio 2026
+			<footer className='w-full py-16 text-center border-t border-slate-100 bg-white'>
+				<p className='text-slate-300 text-[10px] uppercase tracking-[1em] font-black'>
+					Ricardo Alvear — 2026
 				</p>
 			</footer>
 		</div>
