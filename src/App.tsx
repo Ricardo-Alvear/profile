@@ -198,7 +198,7 @@ const PortfolioPage: React.FC = () => {
             >
               <div className="w-32 h-32 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-slate-50 bg-slate-100 mb-6 shadow-inner">
                 <img
-                  src="../public/IMG_1531.jpg"
+                  src="/IMG_1531.jpg"
                   alt="Headshot of Ricardo Alvear"
                   className="w-full h-full object-cover"
                 />
